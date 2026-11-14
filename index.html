@@ -6,11 +6,12 @@
 <title>Kjötmarkaðurinn | Kjötheildsala með fyrsta flokks lamba- og nautakjöt</title>
 <meta name="description" content="Kjötmarkaðurinn er kjötheildsala í Kópavogi. Ferskt og frosið lamba- og nautakjöt frá KS á Sauðárkróki og KVH á Hvammstanga, keyrt til kaupenda hvert á land sem er.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#F4F2EE">
+<meta name="theme-color" content="#F6EDE8">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="favicon-180.png">
-<link rel="preload" href="fonts/Tanker-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Melodrama-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Panchang-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/CabinetGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <script src="vendor/focus-guard.js"></script>
 <script>document.documentElement.classList.add('js');try{if(sessionStorage.getItem('km-intro'))document.documentElement.classList.add('no-intro')}catch(e){}</script>
@@ -22,20 +23,20 @@
 <body>
 <a class="skip" href="#main">Fara beint í efni</a>
 
-<div class="intro" aria-hidden="true"><div class="intro-mark"><img src="img/mark-white.png" alt="" width="333" height="273"></div></div>
+<div class="intro" aria-hidden="true"><div class="intro-panel"></div><div class="intro-mark"><img src="img/mark-white.png" alt="" width="333" height="273"></div></div>
 
 <header class="hdr" data-hdr>
   <a class="hdr-logo" href="#forsida" aria-label="Kjötmarkaðurinn, forsíða"><img src="img/logo.png" alt="Kjötmarkaðurinn" width="1168" height="292"></a>
   <nav class="hdr-nav" aria-label="Aðalvalmynd">
-    <a href="#vorur" class="cas">Vörur</a>
-    <a href="#uppruni" class="cas">Uppruni</a>
-    <a href="#vidskiptavinir" class="cas">Viðskiptavinir</a>
-    <a href="#um-okkur" class="cas">Um okkur</a>
-    <a href="#pantanir" class="cas">Hafa samband</a>
+    <a href="#vorur"><span>Vörur</span><i></i></a>
+    <a href="#uppruni"><span>Uppruni</span><i></i></a>
+    <a href="#vidskiptavinir"><span>Viðskiptavinir</span><i></i></a>
+    <a href="#um-okkur"><span>Um okkur</span><i></i></a>
+    <a href="#pantanir"><span>Hafa samband</span><i></i></a>
   </nav>
   <div class="hdr-end">
-    <a class="hdr-tel" href="tel:+3545553567"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg><span>555-3567</span></a>
-    <button class="btn btn-list" type="button" data-open-list aria-haspopup="dialog" aria-controls="listi"><span class="cas">Pöntunarlisti</span><span class="badge" data-count aria-label="0 vörur á lista"><span data-count-n>0</span></span></button>
+    <a class="hdr-tel" href="tel:+3545553567">555-3567</a>
+    <button class="btn btn-list" type="button" data-open-list aria-haspopup="dialog" aria-controls="listi"><span class="btn-t">Pöntunarlisti</span><span class="badge" data-count aria-label="0 vörur á lista"><span data-count-n>0</span></span></button>
     <button class="burger" type="button" aria-expanded="false" aria-controls="simavalmynd" aria-label="Opna valmynd" data-burger><span></span><span></span></button>
   </div>
   <div class="mnav-clip"><nav class="mnav" id="simavalmynd" tabindex="-1" aria-label="Valmynd">
@@ -51,15 +52,27 @@
 <main id="main">
   <section class="hero" id="forsida" aria-labelledby="hero-h">
     <div class="hero-copy">
-      <p class="eyebrow m"><span>Kjötheildsala · Kópavogi · síðan 2012</span></p>
-      <h1 class="disp hero-h" id="hero-h"><span class="ln"><span>Fyrsta</span></span><span class="ln"><span>flokks</span></span><span class="ln"><span>kjöt<i class="dot">.</i></span></span></h1>
-      <p class="lead m"><span>Ferskt og frosið lamba- og nautakjöt frá Kjötafurðastöð KS á Sauðárkróki og Sláturhúsi KVH á Hvammstanga. Keyrt til kaupenda hvert á land sem er.</span></p>
-      <div class="hero-cta m"><span><a class="btn" href="#vorur"><span class="cas">Skoða vöruúrvalið</span></a><button class="btn btn-ghost" type="button" data-open-list aria-haspopup="dialog" aria-controls="listi"><span class="cas">Setja saman pöntun</span></button></span></div>
+      <p class="eyebrow m"><span>Kjötheildsala í Kópavogi síðan 2012</span></p>
+      <h1 class="serif hero-h" id="hero-h"><span class="ln"><span>Fyrsta flokks</span></span><span class="ln"><span>kjöt<i class="dot">.</i></span></span></h1>
+      <p class="lead m"><span>Ferskt og frosið lamba- og nautakjöt frá KS á Sauðárkróki og KVH á Hvammstanga, keyrt til kaupenda hvert á land sem er.</span></p>
     </div>
-    <figure class="hero-cut">
-      <div class="hero-cut-img"><img src="img/laeri.webp" alt="Heilt lambalæri með kryddjurtum" width="1290" height="852" fetchpriority="high"></div>
-      <figcaption class="tag"><b>Lambalæri</b><span>Ferskt eða frosið</span></figcaption>
-    </figure>
+
+    <div class="dial" data-dial aria-roledescription="hringekja" aria-label="Bitar í kæliborðinu">
+      <div class="dial-body" data-dial-body>
+        <svg class="dial-oct" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M310 30 L690 30 Q730 30 760 58 L942 240 Q970 270 970 310 L970 690 Q970 730 942 760 L760 942 Q730 970 690 970 L310 970 Q270 970 240 942 L58 760 Q30 730 30 690 L30 310 Q30 270 58 240 L240 58 Q270 30 310 30 Z"/></svg>
+        <svg class="dial-rim" viewBox="0 0 1000 1000" aria-hidden="true" data-rim>
+          <defs><path id="rim-path" d="M500,500 m-355,0 a355,355 0 1,1 710,0 a355,355 0 1,1 -710,0"/></defs>
+          <text><textPath href="#rim-path" textLength="2225" lengthAdjust="spacing">FYRSTA FLOKKS KJÖT · FERSKT OG FROSIÐ · LAMB OG NAUT · HVERT Á LAND SEM ER · </textPath></text>
+        </svg>
+      </div>
+      <ul class="orbit" data-orbit></ul>
+      <div class="dial-ui">
+        <button type="button" class="dial-btn" data-dial-prev aria-label="Fyrri biti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button type="button" class="dial-pill" data-dial-open aria-haspopup="dialog" aria-controls="biti"><span class="dial-dot"></span><span data-dial-name>Lambalæri</span><span class="dial-more">Skoða bitann</span></button>
+        <button type="button" class="dial-btn" data-dial-next aria-label="Næsti biti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <p class="sr-only" aria-live="polite" data-dial-live></p>
+    </div>
   </section>
 
   <section class="facts" aria-label="Í stuttu máli">
@@ -71,33 +84,55 @@
     </dl>
   </section>
 
-  <section class="shelf" id="vorur" aria-labelledby="vorur-h">
-    <div class="sec-head">
-      <p class="eyebrow m"><span>Vörur</span></p>
-      <h2 class="disp sec-h" id="vorur-h"><span class="ln"><span>Lambið</span></span><span class="ln"><span>í kæliborðinu</span></span></h2>
-      <p class="sec-sub m"><span>Smelltu á bita til að sjá hann nánar og setja hann á pöntunarlistann. Ferskt eða frosið, í kílóum eða heilum kössum.</span></p>
-    </div>
-    <ul class="tiles" data-tiles></ul>
-
-    <div class="ledger">
-      <div class="ledger-head">
-        <h3 class="disp ledger-h m"><span>Allt úrvalið</span></h3>
-        <div class="chips" role="group" aria-label="Sía vörur">
-          <button type="button" class="chip" aria-pressed="true" data-filter="allt">Allt</button>
-          <button type="button" class="chip" aria-pressed="false" data-filter="lamb">Lambakjöt</button>
-          <button type="button" class="chip" aria-pressed="false" data-filter="naut">Nautakjöt</button>
-        </div>
+  <div class="lines" id="vorur">
+    <section class="line" aria-labelledby="lamb-h">
+      <div class="line-copy">
+        <p class="eyebrow m"><span>Frá KS og KVH</span></p>
+        <h2 class="caps line-h" id="lamb-h"><span class="ln"><span>Lambakjöt</span></span></h2>
+        <i class="rule" aria-hidden="true"></i>
+        <p class="m"><span>Heil læri, sneiðar, skankar, hryggir og skrokkar. Ferskt eftir slátrun eða frosið allt árið, í kílóum eða heilum kössum.</span></p>
+        <p class="m"><span><a class="btn btn-line" href="#urval" data-filter-go="lamb"><span class="btn-t">Sjá lambakjötið</span><span class="arr" aria-hidden="true">→</span></a></span></p>
       </div>
-      <ul class="rows" data-rows></ul>
-      <p class="note">Vöruúrvalið hér er dæmi sem Kjötmarkaðurinn fer yfir og staðfestir. Verð eru gefin upp við pöntun.</p>
+      <figure class="slab"><div class="slab-tex" aria-hidden="true"></div><img class="slab-cut" src="img/laerissneidar.webp" alt="Lærissneiðar af lambi" width="1328" height="1032" loading="lazy"></figure>
+    </section>
+    <section class="line line-b" aria-labelledby="naut-h">
+      <div class="line-copy">
+        <p class="eyebrow m"><span>Frá KS og KVH</span></p>
+        <h2 class="caps line-h" id="naut-h"><span class="ln"><span>Nautakjöt</span></span></h2>
+        <i class="rule" aria-hidden="true"></i>
+        <p class="m"><span>Lundir, fille, ribeye, innralæri, gúllas og hakk. Sama gæðaflokkun og sama keyrsla: þú pantar, við komum með það.</span></p>
+        <p class="m"><span><a class="btn btn-line" href="#urval" data-filter-go="naut"><span class="btn-t">Sjá nautakjötið</span><span class="arr" aria-hidden="true">→</span></a></span></p>
+      </div>
+      <figure class="slab slab-photo"><div class="slab-tex" aria-hidden="true"></div><div class="slab-frame"><img src="img/naut.webp" alt="Nautasteikur á skurðarbretti" width="1800" height="1278" loading="lazy"></div></figure>
+    </section>
+  </div>
+
+  <section class="ledger" id="urval" aria-labelledby="urval-h">
+    <div class="ledger-head">
+      <div>
+        <p class="eyebrow m"><span>Vöruúrval</span></p>
+        <h2 class="caps sec-h" id="urval-h"><span class="ln"><span>Allt úrvalið</span></span></h2>
+      </div>
+      <div class="chips" role="group" aria-label="Sía vörur">
+        <button type="button" class="chip" aria-pressed="true" data-filter="allt">Allt</button>
+        <button type="button" class="chip" aria-pressed="false" data-filter="lamb">Lambakjöt</button>
+        <button type="button" class="chip" aria-pressed="false" data-filter="naut">Nautakjöt</button>
+      </div>
+    </div>
+    <ul class="rows" data-rows></ul>
+    <p class="note">Vöruúrvalið hér er dæmi sem Kjötmarkaðurinn fer yfir og staðfestir. Verð eru gefin upp við pöntun.</p>
+  </section>
+
+  <section class="land" id="uppruni" aria-labelledby="land-h">
+    <div class="land-img"><img src="img/landslag.webp" alt="Kindur á beit í dal á Norðurlandi að kvöldi" width="2000" height="1119" loading="lazy"></div>
+    <div class="land-copy">
+      <p class="eyebrow m"><span>Uppruni</span></p>
+      <h2 class="caps land-h" id="land-h"><span class="ln"><span>Frá afurðastöðvum</span></span><span class="ln"><span>á Norðurlandi vestra</span></span></h2>
+      <p class="land-note">Sýnimynd</p>
     </div>
   </section>
 
-  <section class="supply" id="uppruni" aria-labelledby="uppruni-h">
-    <div class="sec-head">
-      <p class="eyebrow m"><span>Uppruni</span></p>
-      <h2 class="disp sec-h" id="uppruni-h"><span class="ln"><span>Frá sláturhúsinu</span></span><span class="ln"><span>að dyrunum þínum</span></span></h2>
-    </div>
+  <section class="route" aria-label="Leiðin að dyrunum þínum">
     <div class="road" data-road>
       <svg class="road-svg" viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true">
         <path class="road-base" d="M60 90 C 300 90, 330 250, 560 250 S 860 330, 1140 330"/>
@@ -112,32 +147,28 @@
         <li class="stop s4"><span class="pin"></span><b>Til þín</b><span>Hvert á land sem er</span></li>
       </ol>
     </div>
-    <div class="supply-text">
-      <p class="m"><span>Allt kjöt sem Kjötmarkaðurinn selur er fyrsta flokks. Lambið og nautið kemur frá tveimur afurðastöðvum á Norðurlandi vestra, fer í gegnum lagerinn á Smiðjuvegi og þaðan beint til kaupenda.</span></p>
+    <div class="route-text">
+      <p class="m"><span>Allt kjöt sem Kjötmarkaðurinn selur er fyrsta flokks. Það kemur frá tveimur afurðastöðvum á Norðurlandi vestra, fer í gegnum lagerinn á Smiðjuvegi og þaðan beint til kaupenda.</span></p>
       <p class="m"><span>Lögð er áhersla á vönduð vinnubrögð og sveigjanlega þjónustu fyrir hvern viðskiptavin, hvort sem pöntunin er einn kassi eða heill bíll.</span></p>
     </div>
   </section>
 
   <section class="buyers" id="vidskiptavinir" aria-labelledby="vid-h">
-    <div class="buyers-pin" data-pin>
-      <div class="buyers-track" data-track>
-        <div class="buyers-intro">
-          <p class="eyebrow m"><span>Viðskiptavinir</span></p>
-          <h2 class="disp sec-h" id="vid-h"><span class="ln"><span>Sveigjanleg</span></span><span class="ln"><span>þjónusta fyrir</span></span><span class="ln"><span>hvern og einn</span></span></h2>
-        </div>
-        <article class="bpanel" style="--g:var(--el1)"><h3 class="disp"><span class="ln"><span>Veitingahús</span></span></h3><p>Sama lærið, sama sneiðin, viku eftir viku. Pantaðu fyrir helgina og fáðu það í hús.</p><img src="img/laerissneidar.webp" alt="" loading="lazy" width="1328" height="1032"></article>
-        <article class="bpanel" style="--g:var(--el2)"><h3 class="disp"><span class="ln"><span>Verslanir</span></span></h3><p>Ferskt í kæliborðið og frosið á lager, í magni sem passar hillunni.</p><img src="img/steikur.webp" alt="" loading="lazy" width="1505" height="808"></article>
-        <article class="bpanel" style="--g:var(--el3)"><h3 class="disp"><span class="ln"><span>Mötuneyti</span></span></h3><p>Stórar pantanir á föstum dögum fyrir skóla, vinnustaði og stóreldhús.</p><img src="img/skankar.webp" alt="" loading="lazy" width="1347" height="629"></article>
-        <article class="bpanel bpanel-red"><h3 class="disp"><span class="ln"><span>Kjötvinnslur</span></span></h3><p>Heilir skrokkar og stærri einingar til frekari vinnslu.</p><a class="btn btn-paper" href="#pantanir"><span class="cas">Hafa samband</span></a></article>
-      </div>
+    <div class="buyers-head">
+      <p class="eyebrow m"><span>Viðskiptavinir</span></p>
+      <h2 class="caps sec-h" id="vid-h"><span class="ln"><span>Sveigjanleg þjónusta</span></span><span class="ln"><span>fyrir hvern og einn</span></span></h2>
     </div>
+    <article class="band"><figure class="band-img"><img src="img/laeri.webp" alt="" loading="lazy" width="1290" height="852"></figure><div class="band-copy"><p class="eyebrow m"><span>01</span></p><h3 class="caps"><span class="ln"><span>Veitingahús</span></span></h3><p class="m"><span>Sama lærið, sama sneiðin, viku eftir viku. Pantaðu fyrir helgina og fáðu það í hús.</span></p></div></article>
+    <article class="band band-r"><figure class="band-img"><img src="img/steikur.webp" alt="" loading="lazy" width="1505" height="808"></figure><div class="band-copy"><p class="eyebrow m"><span>02</span></p><h3 class="caps"><span class="ln"><span>Verslanir</span></span></h3><p class="m"><span>Ferskt í kæliborðið og frosið á lager, í magni sem passar hillunni.</span></p></div></article>
+    <article class="band"><figure class="band-img"><img src="img/skankar.webp" alt="" loading="lazy" width="1347" height="629"></figure><div class="band-copy"><p class="eyebrow m"><span>03</span></p><h3 class="caps"><span class="ln"><span>Mötuneyti</span></span></h3><p class="m"><span>Stórar pantanir á föstum dögum fyrir skóla, vinnustaði og stóreldhús.</span></p></div></article>
+    <article class="band band-r"><figure class="band-img"><img src="img/laerissneidar.webp" alt="" loading="lazy" width="1328" height="1032"></figure><div class="band-copy"><p class="eyebrow m"><span>04</span></p><h3 class="caps"><span class="ln"><span>Kjötvinnslur</span></span></h3><p class="m"><span>Heilir skrokkar og stærri einingar til frekari vinnslu.</span></p><p class="m"><span><a class="btn btn-line" href="#pantanir"><span class="btn-t">Gerast viðskiptavinur</span><span class="arr" aria-hidden="true">→</span></a></span></p></div></article>
   </section>
 
   <section class="about" id="um-okkur" aria-labelledby="um-h">
-    <figure class="about-img m"><span><img src="img/lamb-dark.webp" alt="Lambakótilettur á dökkum steini með kryddjurtum" loading="lazy" width="1600" height="1341"></span></figure>
+    <figure class="about-img"><img src="img/lamb-dark.webp" alt="Lambakótilettur á dökkum steini með kryddjurtum" loading="lazy" width="1600" height="1341"></figure>
     <div class="about-copy">
       <p class="eyebrow m"><span>Um okkur</span></p>
-      <h2 class="disp sec-h" id="um-h"><span class="ln"><span>Kjötheildsala</span></span><span class="ln"><span>síðan 2012</span></span></h2>
+      <h2 class="caps sec-h" id="um-h"><span class="ln"><span>Kjötheildsala</span></span><span class="ln"><span>síðan 2012</span></span></h2>
       <p class="m"><span>Kjötmarkaðurinn er kjötheildsala sem selur ferskt og frosið lamba- og nautakjöt frá Kjötafurðastöð KS á Sauðárkróki og Sláturhúsi KVH á Hvammstanga. Fyrirtækið var stofnað 1. mars 2012 og er á Smiðjuvegi 46 í Kópavogi.</span></p>
       <p class="m"><span>Lögð er áhersla á vönduð vinnubrögð og að veita sveigjanlega þjónustu fyrir hvern viðskiptavin.</span></p>
     </div>
@@ -154,11 +185,11 @@
   <section class="contact" id="pantanir" aria-labelledby="pant-h">
     <div class="contact-head">
       <p class="eyebrow m"><span>Pantanir</span></p>
-      <h2 class="disp sec-h" id="pant-h"><span class="ln"><span>Hringdu,</span></span><span class="ln"><span>skrifaðu eða</span></span><span class="ln"><span>settu á lista</span></span></h2>
+      <h2 class="caps sec-h" id="pant-h"><span class="ln"><span>Hefjum samtalið</span></span></h2>
     </div>
     <div class="contact-grid">
       <div class="contact-info">
-        <a class="big-tel m" href="tel:+3545553567"><span>555-3567</span></a>
+        <a class="big-tel serif m" href="tel:+3545553567"><span>555-3567</span></a>
         <dl>
           <div><dt>Farsími</dt><dd><a href="tel:+3546914567">691-4567</a></dd></div>
           <div><dt>Netfang</dt><dd><a href="mailto:gummig@kjotmarkadurinn.is">gummig@kjotmarkadurinn.is</a></dd></div>
@@ -172,7 +203,7 @@
         <div class="field half"><label for="f-simi">Sími</label><input id="f-simi" name="simi" type="tel" autocomplete="tel" inputmode="tel" required><i></i></div>
         <div class="field half"><label for="f-net">Netfang</label><input id="f-net" name="netfang" type="email" autocomplete="email" spellcheck="false" required><i></i></div>
         <div class="field"><label for="f-msg">Skilaboð</label><textarea id="f-msg" name="skilabod" rows="4"></textarea><i></i></div>
-        <button class="btn" type="submit"><span class="cas">Senda fyrirspurn</span></button>
+        <button class="btn btn-red" type="submit"><span class="btn-t">Senda fyrirspurn</span><span class="arr" aria-hidden="true">→</span></button>
         <p class="form-msg" role="status" aria-live="polite" data-form-msg></p>
       </form>
     </div>
@@ -181,7 +212,7 @@
 
 <footer class="ftr">
   <div class="ftr-in" data-ftr>
-    <p class="ftr-name disp" aria-label="Kjötmarkaðurinn" data-wave>Kjötmarkaðurinn</p>
+    <p class="ftr-name serif" aria-label="Kjötmarkaðurinn" data-wave>Kjötmarkaðurinn</p>
     <div class="ftr-cols">
       <p>Kjötmarkaðurinn ehf.<br>Smiðjuvegur 46, gul gata<br>200 Kópavogur</p>
       <p><a href="tel:+3545553567">555-3567</a><br><a href="tel:+3546914567">691-4567</a><br><a href="mailto:gummig@kjotmarkadurinn.is">gummig@kjotmarkadurinn.is</a></p>
@@ -198,7 +229,7 @@
   <div class="sheet-img"><img alt="" data-sheet-img></div>
   <div class="sheet-body">
     <p class="eyebrow" data-sheet-kind></p>
-    <h2 class="disp sheet-h" id="sheet-h" data-sheet-h></h2>
+    <h2 class="caps sheet-h" id="sheet-h" data-sheet-h></h2>
     <p data-sheet-txt></p>
     <fieldset class="seg"><legend>Ástand</legend>
       <label><input type="radio" name="astand" value="Ferskt" checked><span>Ferskt</span></label>
@@ -210,10 +241,10 @@
 </aside>
 
 <aside class="drawer" id="listi" role="dialog" aria-modal="true" aria-labelledby="listi-h" tabindex="-1" hidden data-drawer>
-  <div class="drawer-top"><h2 class="disp" id="listi-h">Pöntunarlisti</h2><button class="x" type="button" data-close aria-label="Loka pöntunarlista"><span></span><span></span></button></div>
+  <div class="drawer-top"><h2 class="caps" id="listi-h">Pöntunarlisti</h2><button class="x" type="button" data-close aria-label="Loka pöntunarlista"><span></span><span></span></button></div>
   <div class="drawer-scroll">
     <ul class="litems" data-litems></ul>
-    <p class="lempty" data-lempty>Listinn er tómur. Veldu bita í <a href="#vorur" data-close-go>vöruúrvalinu</a> eða skrifaðu pöntunina beint í athugasemdina.</p>
+    <p class="lempty" data-lempty>Listinn er tómur. Veldu bita í <a href="#urval" data-close-go>vöruúrvalinu</a> eða skrifaðu pöntunina beint í athugasemdina.</p>
     <form class="form form-list" data-list-form novalidate>
       <div class="field"><label for="l-fyr">Fyrirtæki</label><input id="l-fyr" name="fyrirtaeki" autocomplete="organization" required><i></i></div>
       <div class="field half"><label for="l-kt">Kennitala</label><input id="l-kt" name="kennitala" inputmode="numeric" autocomplete="off" spellcheck="false"><i></i></div>
@@ -222,7 +253,7 @@
       <div class="field half"><label for="l-simi">Sími</label><input id="l-simi" name="simi" type="tel" inputmode="tel" autocomplete="tel" required><i></i></div>
       <div class="field"><label for="l-net">Netfang</label><input id="l-net" name="netfang" type="email" autocomplete="email" spellcheck="false"><i></i></div>
       <div class="field"><label for="l-ath">Athugasemd</label><textarea id="l-ath" name="athugasemd" rows="3"></textarea><i></i></div>
-      <button class="btn btn-red btn-wide" type="submit"><span class="cas">Senda pöntun</span></button>
+      <button class="btn btn-red btn-wide" type="submit"><span class="btn-t">Senda pöntun</span></button>
       <p class="form-msg" role="status" aria-live="polite" data-list-msg></p>
     </form>
   </div>
