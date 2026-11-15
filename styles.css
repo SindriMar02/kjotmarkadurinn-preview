@@ -395,3 +395,5 @@ html.mo .card .card-meta{opacity:0;transform:translateY(16px)}
 .feature-stick img{transition:none}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+.contact-l>.chip{justify-self:start}
