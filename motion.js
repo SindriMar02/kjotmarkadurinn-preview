@@ -105,7 +105,8 @@
       const tile = $('.card-tile', c), im = $('.card-tile img', c), meta = $('.card-meta', c);
       tl.to(tile, { clipPath: 'inset(0% 0 0 0)', duration: 1, ease: 'power3.inOut' }, i * .07)
         .fromTo(im, { scale: 1.15 }, { scale: 1, duration: 1.2, ease: EASE, clearProps: 'transform' }, i * .07 + .1)
-        .to(meta, { opacity: 1, y: 0, duration: .7, ease: 'power2.out' }, i * .07 + .35);
+        .to(meta, { opacity: 1, y: 0, duration: .7, ease: 'power2.out' }, i * .07 + .35)
+        .call(() => c.classList.add('in'), null, i * .07 + .55);
     });
   };
   ScrollTrigger.batch('.card', { start: 'top 92%', once: true, onEnter: cardIn });
@@ -175,7 +176,7 @@
     $$('.fb, .vt').forEach(b => b.addEventListener('click', () => {
       const vis = $$('.card', grid).filter(c => !c.hidden);
       ftw && ftw.progress(1);
-      vis.forEach(c => { gsap.set($('.card-tile', c), { clipPath: 'inset(0% 0 0 0)' }); gsap.set($('.card-meta', c), { opacity: 1, y: 0 }); });
+      vis.forEach(c => { gsap.set($('.card-tile', c), { clipPath: 'inset(0% 0 0 0)' }); gsap.set($('.card-meta', c), { opacity: 1, y: 0 }); c.classList.add('in'); });
       ftw = gsap.fromTo(vis, { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .6, stagger: .04, ease: EASE, clearProps: 'transform,opacity,visibility', onComplete: () => ScrollTrigger.refresh() });
     }));
   }
