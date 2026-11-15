@@ -1,80 +1,81 @@
-/* Kjötmarkaðurinn v3 (Westholme pattern). Calm by design: CSS transitions and one IntersectionObserver,
-   no scroll-driven motion, no animation library. The order list lives in localStorage across the four pages. */
+/* Kjötmarkaðurinn v4 (Halcyon system). Halcyon's motion is .3s/.5s ease transitions; no scroll engine, no theme switch. */
 (() => {
-  const html = document.documentElement;
-  const $ = (s, r = document) => r.querySelector(s);
-  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* range (example, to be confirmed by Kjötmarkaðurinn) */
-  const RANGE = [
-    ['laeri', 'Lambalæri', 'lamb'], ['sneidar', 'Lærissneiðar', 'lamb'], ['skankar', 'Lambaskankar', 'lamb'], ['steikur', 'Lambasteikur', 'lamb'],
-    ['hryggur', 'Lambahryggur', 'lamb'], ['kotilettur', 'Lambakótilettur', 'lamb'], ['lfille', 'Lambafille', 'lamb'], ['frampartur', 'Lambaframpartur', 'lamb'],
-    ['lhakk', 'Lambahakk', 'lamb'], ['skrokkur', 'Heilir lambaskrokkar', 'lamb'],
-    ['lund', 'Nautalundir', 'naut'], ['nfille', 'Nautafille', 'naut'], ['ribeye', 'Ribeye', 'naut'], ['innralaeri', 'Nautainnralæri', 'naut'],
-    ['gullas', 'Nautagúllas', 'naut'], ['nhakk', 'Nautahakk', 'naut'],
-  ];
-  const KIND = { lamb: 'Lambakjöt', naut: 'Nautakjöt' };
-  const nameOf = id => (RANGE.find(r => r[0] === id) || [, id])[1];
-
-  /* calm arrival: fade + 24px, once (Westholme fade-in .7s) */
-  const rv = $$('.rv');
-  if ('IntersectionObserver' in window && !RM) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .1, rootMargin: '0px 0px -5% 0px' });
-    rv.forEach(el => io.observe(el));
-    setTimeout(() => rv.forEach(el => el.classList.add('in')), 4000); // never leave content hidden
-  } else rv.forEach(el => el.classList.add('in'));
-
-  /* header over the hero turns solid after 40px */
+  const html = document.documentElement, body = document.body;
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const B = body.dataset.base || '';
+  const CUTS = window.KM_CUTS || [];
+  const byS = s => CUTS.find(c => c.s === s) || { n: s, img: '' };
   const hdr = $('[data-hdr]');
-  if (hdr.classList.contains('hdr-over')) {
-    const upd = () => hdr.classList.toggle('solid', scrollY > 40);
-    addEventListener('scroll', upd, { passive: true }); upd();
+
+  /* header: transparent over a hero, white once scrolled */
+  if (body.classList.contains('hdr-over')) { const u = () => hdr.classList.toggle('solid', scrollY > 24); addEventListener('scroll', u, { passive: true }); u(); }
+
+  /* mega menu: hover on fine pointers, click/Enter everywhere; Esc closes; pointer opens onto the panel */
+  const megaBtn = $('[data-mega]'), mega = $('[data-mega-panel]');
+  let megaT;
+  const setMega = (open, viaKey) => {
+    clearTimeout(megaT);
+    megaBtn.setAttribute('aria-expanded', open); hdr.classList.toggle('mega-open', open);
+    if (open) { mega.hidden = false; requestAnimationFrame(() => mega.classList.add('open')); if (viaKey) mega.querySelector('a').focus(); }
+    else { mega.classList.remove('open'); megaT = setTimeout(() => { if (!mega.classList.contains('open')) mega.hidden = true; }, 300); }
+  };
+  if (megaBtn) {
+    megaBtn.addEventListener('click', e => setMega(megaBtn.getAttribute('aria-expanded') !== 'true', e.detail === 0));
+    if (matchMedia('(hover: hover)').matches) {
+      let leaveT;
+      [megaBtn, mega].forEach(el => { el.addEventListener('mouseenter', () => { clearTimeout(leaveT); setMega(true); }); el.addEventListener('mouseleave', () => { leaveT = setTimeout(() => setMega(false), 180); }); });
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && megaBtn.getAttribute('aria-expanded') === 'true') { setMega(false); megaBtn.focus(); } });
+    document.addEventListener('click', e => { if (!hdr.contains(e.target) && megaBtn.getAttribute('aria-expanded') === 'true') setMega(false); });
   }
 
-  /* phone menu: pointer opens onto the panel, keyboard onto the first link (focus-guard rule) */
+  /* phone menu */
   const burger = $('[data-burger]'), mnav = $('#simavalmynd');
-  let menuT;
+  let mT;
   const setMenu = (open, e) => {
-    clearTimeout(menuT);
-    burger.setAttribute('aria-expanded', open); burger.setAttribute('aria-label', open ? 'Loka valmynd' : 'Opna valmynd');
-    hdr.classList.toggle('menu-open', open);
-    if (open) {
-      mnav.hidden = false; requestAnimationFrame(() => mnav.classList.add('open'));
-      ((e && e.detail === 0) ? mnav.querySelector('a') : mnav).focus({ preventScroll: true });
-    } else { mnav.classList.remove('open'); menuT = setTimeout(() => { if (!mnav.classList.contains('open')) mnav.hidden = true; }, 350); }
+    clearTimeout(mT); burger.setAttribute('aria-expanded', open); burger.setAttribute('aria-label', open ? 'Loka valmynd' : 'Opna valmynd');
+    hdr.classList.toggle('menu-open', open); html.classList.toggle('lock', open);
+    if (open) { mnav.hidden = false; requestAnimationFrame(() => mnav.classList.add('open')); ((e && e.detail === 0) ? mnav.querySelector('a') : mnav).focus({ preventScroll: true }); }
+    else { mnav.classList.remove('open'); mT = setTimeout(() => { if (!mnav.classList.contains('open')) mnav.hidden = true; }, 300); }
   };
   burger.addEventListener('click', e => setMenu(burger.getAttribute('aria-expanded') !== 'true', e));
+  mnav.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') { setMenu(false); burger.focus(); } });
 
-  /* order list */
+  /* order list (Halcyon "project") */
   const store = { get() { try { return JSON.parse(localStorage.getItem('km-listi') || '[]'); } catch { return []; } }, set(v) { try { localStorage.setItem('km-listi', JSON.stringify(v)); } catch {} } };
   let list = store.get();
   const lists = [[$('[data-litems]'), $('[data-lempty]')], [$('[data-litems-page]'), $('[data-lempty-page]')]].filter(([u]) => u);
+  const unitTxt = x => x.u === 'kassi' ? (x.q === 1 ? 'kassi' : 'kassar') : 'kg';
   function render() {
-    const n = list.length;
-    $$('[data-count]').forEach(b => { b.querySelector('[data-count-n]').textContent = n; b.setAttribute('aria-label', `${n} ${n === 1 ? 'vara' : 'vörur'} á lista`); });
+    $$('[data-count-n]').forEach(n => { n.textContent = list.length; });
     lists.forEach(([ul, empty]) => {
-      ul.innerHTML = list.map((x, i) => `<li class="litem"><div><b>${nameOf(x.id)}</b><small>${x.a}</small></div>
-        <div class="step" role="group" aria-label="Magn ${nameOf(x.id)}"><button type="button" data-li="${i}" data-d="-5" aria-label="Minnka">−</button><output>${x.kg} kg</output><button type="button" data-li="${i}" data-d="5" aria-label="Auka">+</button></div>
-        <button type="button" class="lrm" data-rm="${i}" aria-label="Fjarlægja ${nameOf(x.id)}">✕</button></li>`).join('');
-      empty.hidden = n > 0;
+      ul.innerHTML = list.map((x, i) => { const c = byS(x.s); return `<li class="litem"><img src="${B}img/cuts/${c.img}.webp" alt=""><div><b>${c.n}</b><small>${x.a}</small></div>
+        <div class="step" role="group" aria-label="Magn ${c.n}"><button type="button" data-li="${i}" data-d="-1" aria-label="Minnka">−</button><output>${x.q}</output><span class="mono">${unitTxt(x)}</span><button type="button" data-li="${i}" data-d="1" aria-label="Auka">+</button></div>
+        <button type="button" class="lrm" data-rm="${i}" aria-label="Fjarlægja ${c.n}">✕</button></li>`; }).join('');
+      empty.hidden = list.length > 0;
     });
   }
-  function add(id, a, kg) { const hit = list.find(x => x.id === id && x.a === a); if (hit) hit.kg += kg; else list.push({ id, a, kg }); store.set(list); render(); }
+  function add(s, a, u, q) {
+    const hit = list.find(x => x.s === s && x.a === a && x.u === u);
+    if (hit) hit.q += q; else list.push({ s, a, u, q });
+    store.set(list); render();
+    $$('.hdr-box').forEach(b => { b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); });
+  }
   document.addEventListener('click', e => {
-    const s = e.target.closest('[data-li]'), r = e.target.closest('[data-rm]');
-    if (s) { const x = list[+s.dataset.li]; x.kg = Math.max(5, x.kg + +s.dataset.d); store.set(list); render(); }
-    if (r) { list.splice(+r.dataset.rm, 1); store.set(list); render(); const p = r.closest('[data-drawer]'); if (p) p.focus({ preventScroll: true }); }
+    const s = e.target.closest('[data-li]'), r = e.target.closest('[data-rm]'), q = e.target.closest('[data-quick]');
+    if (s) { const x = list[+s.dataset.li]; x.q = Math.max(1, x.q + +s.dataset.d); store.set(list); render(); }
+    if (r) { list.splice(+r.dataset.rm, 1); store.set(list); render(); const d = r.closest('[data-drawer]'); if (d) d.focus({ preventScroll: true }); }
+    if (q) { add(q.dataset.quick, 'Ferskt', 'kg', 10); const t = q.textContent; q.classList.add('done'); q.textContent = 'Komið ✓'; setTimeout(() => { q.classList.remove('done'); q.textContent = t; }, 1400); }
   });
   addEventListener('storage', e => { if (e.key === 'km-listi') { list = store.get(); render(); } });
   render();
 
   /* drawer */
   const drawer = $('[data-drawer]'), scrim = $('[data-scrim]');
-  let last = null, closeT;
+  let last = null, cT;
   const open = e => {
-    clearTimeout(closeT); last = e.currentTarget;
+    clearTimeout(cT); last = e.currentTarget; if (megaBtn) setMega(false);
     drawer.hidden = false; scrim.hidden = false; html.classList.add('lock');
     requestAnimationFrame(() => requestAnimationFrame(() => { drawer.classList.add('open'); scrim.classList.add('on'); }));
     ((e.detail === 0) ? drawer.querySelector('button, a[href]') : drawer).focus({ preventScroll: true });
@@ -82,7 +83,7 @@
   const close = () => {
     if (drawer.hidden) return;
     drawer.classList.remove('open'); scrim.classList.remove('on'); html.classList.remove('lock');
-    closeT = setTimeout(() => { if (!drawer.classList.contains('open')) { drawer.hidden = true; scrim.hidden = true; } }, RM ? 0 : 400);
+    cT = setTimeout(() => { if (!drawer.classList.contains('open')) { drawer.hidden = true; scrim.hidden = true; } }, 400);
     last && last.focus({ preventScroll: true });
   };
   $$('[data-open-list]').forEach(b => b.addEventListener('click', open));
@@ -91,44 +92,48 @@
   document.addEventListener('keydown', e => {
     if (drawer.hidden) return;
     if (e.key === 'Escape') { e.preventDefault(); close(); }
-    if (e.key === 'Tab') {
-      const f = $$('button, a[href], input', drawer).filter(x => x.offsetParent !== null);
-      const a = f[0], z = f[f.length - 1];
-      if (e.shiftKey && (document.activeElement === a || document.activeElement === drawer)) { e.preventDefault(); z.focus(); }
-      else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
-    }
+    if (e.key === 'Tab') { const f = $$('button, a[href]', drawer).filter(x => x.offsetParent !== null); const a = f[0], z = f[f.length - 1];
+      if (e.shiftKey && (document.activeElement === a || document.activeElement === drawer)) { e.preventDefault(); z.focus(); } else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); } }
   });
 
-  /* product bands: fresh/frozen + kg + add */
-  $$('[data-buy]').forEach(f => {
-    let kg = 10; const out = $('output', f), btn = $('button[type=submit]', f); let t;
-    $$('[data-d]', f).forEach(b => b.addEventListener('click', () => { kg = Math.max(5, kg + +b.dataset.d); out.textContent = kg + ' kg'; }));
-    f.addEventListener('submit', e => {
-      e.preventDefault(); add(f.dataset.buy, $('input:checked', f).value, kg);
-      btn.classList.add('added'); clearTimeout(t); t = setTimeout(() => btn.classList.remove('added'), 1600);
-    });
-  });
+  /* home: tabs + feature image follows the hovered/focused row */
+  $$('[role=tab]').forEach(t => t.addEventListener('click', () => {
+    $$('[role=tab]').forEach(x => { const on = x === t; x.setAttribute('aria-selected', on); $('#' + x.getAttribute('aria-controls')).hidden = !on; });
+  }));
+  const fImg = $('[data-feature-img]');
+  if (fImg) $$('[data-rows-feature] .row').forEach(r => { const sw = () => { if (fImg.getAttribute('src') === r.dataset.img) return; fImg.style.opacity = 0; setTimeout(() => { fImg.src = r.dataset.img; fImg.style.opacity = 1; }, 180); }; r.addEventListener('mouseenter', sw); r.addEventListener('focusin', sw); });
 
-  /* range list + filter (no animation by design) */
-  const rows = $('[data-rows]');
-  if (rows) {
-    rows.innerHTML = RANGE.map(([id, n, k]) => `<li class="row" data-k="${k}"><div class="row-in"><span class="row-n">${n}</span><span class="row-k">${KIND[k]}</span><span class="row-a">Ferskt · Frosið</span><button type="button" class="row-add" data-quick="${id}" aria-label="Setja ${n} á pöntunarlista">+</button></div></li>`).join('');
-    rows.addEventListener('click', e => { const b = e.target.closest('[data-quick]'); if (!b) return; add(b.dataset.quick, 'Ferskt', 10); b.classList.add('done'); b.textContent = '✓'; setTimeout(() => { b.classList.remove('done'); b.textContent = '+'; }, 1400); });
-    const applyF = f => { $$('.chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.filter === f)); $$('.row', rows).forEach(r => { r.hidden = !(f === 'allt' || r.dataset.k === f); }); };
-    $$('.chip').forEach(c => c.addEventListener('click', () => applyF(c.dataset.filter)));
-    $$('a[href="#urval"]').forEach(a => a.addEventListener('click', () => applyF('naut')));
+  /* collection: filter + grid/list + deep links #lamb / #naut */
+  const grid = $('[data-grid]');
+  if (grid) {
+    const cards = $$('.card', grid), nEl = $('[data-n]');
+    const apply = f => { $$('.fb').forEach(b => b.setAttribute('aria-pressed', b.dataset.filter === f)); let n = 0; cards.forEach(c => { const on = f === 'allt' || c.dataset.k === f; c.hidden = !on; if (on) n++; }); nEl.textContent = n + ' bitar'; };
+    $$('.fb').forEach(b => b.addEventListener('click', () => { apply(b.dataset.filter); history.replaceState(null, '', b.dataset.filter === 'allt' ? location.pathname : '#' + b.dataset.filter); }));
+    $$('.vt').forEach(b => b.addEventListener('click', () => { $$('.vt').forEach(x => x.setAttribute('aria-pressed', x === b)); grid.classList.toggle('as-list', b.dataset.view === 'list'); }));
+    const h = location.hash.slice(1); if (h === 'lamb' || h === 'naut') apply(h);
+    addEventListener('hashchange', () => { const k = location.hash.slice(1); if (k === 'lamb' || k === 'naut') apply(k); });
+  }
+
+  /* product configurator (Halcyon: finish / module / qty / Add to project) */
+  const buy = $('form[data-buy]');
+  if (buy) {
+    let q = 10; const out = $('[data-qty]', buy), unit = $('[data-unit]', buy), btn = $('button[type=submit]', buy); let t;
+    const sync = () => { const u = $('input[name=u]:checked', buy).value; unit.textContent = u === 'kassi' ? (q === 1 ? 'kassi' : 'kassar') : 'kg'; out.textContent = q; };
+    $$('input[name=u]', buy).forEach(r => r.addEventListener('change', () => { q = r.value === 'kassi' ? 1 : 10; sync(); }));
+    $$('[data-d]', buy).forEach(b => b.addEventListener('click', () => { const u = $('input[name=u]:checked', buy).value; q = Math.max(1, q + (+b.dataset.d) * (u === 'kassi' ? 1 : 5)); sync(); }));
+    buy.addEventListener('submit', e => { e.preventDefault(); add(buy.dataset.buy, $('input[name=a]:checked', buy).value, $('input[name=u]:checked', buy).value, q); btn.classList.add('added'); clearTimeout(t); t = setTimeout(() => btn.classList.remove('added'), 1600); });
+    sync();
   }
 
   /* order form (prototype: nothing is sent) */
   const form = $('[data-order-form]');
   if (form) {
-    const msg = $('[data-order-msg]');
-    const d = new Date(); d.setDate(d.getDate() + 1); $('#o-dag').min = d.toISOString().slice(0, 10);
+    const msg = $('[data-order-msg]'); const d = new Date(); d.setDate(d.getDate() + 1); $('#o-dag').min = d.toISOString().slice(0, 10);
     form.addEventListener('submit', e => {
       e.preventDefault(); let bad = null;
       $$('[required]', form).forEach(i => { const ok = !!i.value.trim(); i.closest('.field').classList.toggle('bad', !ok); i.setAttribute('aria-invalid', String(!ok)); if (!ok && !bad) bad = i; });
       const em = $('#o-net'); if (em.value && !/.+@.+\..+/.test(em.value)) { em.closest('.field').classList.add('bad'); bad = bad || em; }
-      if (bad) { msg.textContent = 'Fylltu út reitina sem eru merktir.'; bad.focus(); return; }
+      if (bad) { msg.textContent = 'Fylltu út reitina sem eru merktir með stjörnu.'; bad.focus(); return; }
       msg.textContent = `Takk. Þetta er frumgerð, svo engin pöntun var send${list.length ? ` (${list.length} ${list.length === 1 ? 'vara' : 'vörur'} á lista)` : ''}. Í tilbúnum vef fer pöntunin beint til Kjötmarkaðarins og þú færð staðfestingu.`;
     });
   }
