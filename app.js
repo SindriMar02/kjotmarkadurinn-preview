@@ -101,7 +101,7 @@
     $$('[role=tab]').forEach(x => { const on = x === t; x.setAttribute('aria-selected', on); $('#' + x.getAttribute('aria-controls')).hidden = !on; });
   }));
   const fImg = $('[data-feature-img]');
-  if (fImg) $$('[data-rows-feature] .row').forEach(r => { const sw = () => { if (fImg.getAttribute('src') === r.dataset.img) return; fImg.style.opacity = 0; setTimeout(() => { fImg.src = r.dataset.img; fImg.style.opacity = 1; }, 180); }; r.addEventListener('mouseenter', sw); r.addEventListener('focusin', sw); });
+  if (fImg && !(window.gsap && !matchMedia('(prefers-reduced-motion: reduce)').matches)) $$('[data-rows-feature] .row').forEach(r => { const sw = () => { if (fImg.getAttribute('src') === r.dataset.img) return; fImg.style.opacity = 0; setTimeout(() => { fImg.src = r.dataset.img; fImg.style.opacity = 1; }, 180); }; r.addEventListener('mouseenter', sw); r.addEventListener('focusin', sw); });
 
   /* collection: filter + grid/list + deep links #lamb / #naut */
   const grid = $('[data-grid]');
